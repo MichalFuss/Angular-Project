@@ -1,0 +1,51 @@
+<mat-card class="styled-card mat-elevation-z2">
+  <mat-card-header>
+    <div mat-card-avatar class="avatar-box">
+      <mat-icon>groups</mat-icon>
+    </div>
+    <mat-card-title>{{ team().name }}</mat-card-title>
+    <mat-card-subtitle>נוצר בתאריך: {{ team().created_at | date:'dd/MM/yyyy' }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="card-body">
+    <div class="stats-badge">
+      <mat-icon>person</mat-icon>
+      <span>{{ team().members_count }} חברים בצוות</span>
+    </div>
+
+    <form [formGroup]="addMemberForm" (ngSubmit)="addMember()" class="member-form">
+      <mat-form-field appearance="fill" class="compact-field">
+        <mat-label>הוסף חבר</mat-label>
+        <input matInput 
+               type="number"
+               formControlName="userId" 
+               placeholder="ID משתמש"
+               aria-label="מזהה משתמש להוספה">
+        <mat-icon matPrefix>person_add</mat-icon>
+        @if (addMemberForm.get('userId')?.invalid && addMemberForm.get('userId')?.touched) {
+          <mat-error>חובה להזין מזהה משתמש</mat-error>
+        }
+      </mat-form-field>
+      
+      <button mat-mini-fab 
+              color="primary" 
+              type="submit" 
+              [disabled]="addMemberForm.invalid" 
+              matTooltip="הוסף חבר לצוות"
+              aria-label="הוסף חבר לצוות"
+              class="add-member-btn">
+        <mat-icon>check</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions class="card-footer">
+    <button mat-stroked-button color="primary" class="action-btn" (click)="goToProjects(team())" aria-label="צפה בפרויקטים של הצוות">
+      <mat-icon>rocket_launch</mat-icon>
+      <span>פרויקטים</span>
+    </button>
+   
+  </mat-card-actions>
+</mat-card>

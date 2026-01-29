@@ -1,0 +1,64 @@
+<div class="page-wrapper">
+  <header class="page-header">
+    <div class="header-content">
+      <mat-icon class="header-icon">hub</mat-icon>
+      <h1>ניהול צוותי פיתוח</h1>
+    </div>
+  </header>
+
+  @if (errorMessage()) {
+    <div class="error-toast" role="alert">
+      <mat-icon>info</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <section class="add-team-card mat-elevation-z3">
+    <div class="section-title">
+      <mat-icon>add_circle_outline</mat-icon>
+      <h2>צור צוות חדש</h2>
+    </div>
+    
+    <div class="input-container">
+      <mat-form-field appearance="fill" class="custom-form-field">
+        <mat-label>שם הצוות</mat-label>
+        <input matInput 
+               [formControl]="teamNameControl" 
+               placeholder="למשל: Frontend Heroes" 
+               (keyup.enter)="addTeam()"
+               aria-label="שם הצוות החדש">
+        <mat-icon matSuffix color="primary">hub</mat-icon>
+        @if (teamNameControl.invalid && teamNameControl.touched) {
+          <mat-error>חובה להזין לפחות 3 תווים</mat-error>
+        }
+      </mat-form-field>
+
+      <button mat-fab 
+              color="primary" 
+              class="add-btn" 
+              (click)="addTeam()" 
+              [disabled]="teamNameControl.invalid" 
+              matTooltip="צור צוות חדש"
+              aria-label="צור צוות חדש">
+        <mat-icon>done</mat-icon>
+      </button>
+    </div>
+  </section>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  }
+
+  <main class="teams-grid">
+    @for(team of teams$ | async; track team.id) {
+      <app-team-card [team]="team" class="grid-item"></app-team-card>
+    } @empty {
+      <div class="empty-state">
+        <mat-icon>group_off</mat-icon>
+        <p>עדיין לא נוצרו צוותים במערכת</p>
+      </div>
+    }
+  </main>
+</div>

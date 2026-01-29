@@ -1,0 +1,39 @@
+<div class="comments-container">
+  @if (errorMessage()) {
+    <div class="error-message" role="alert">
+      <mat-icon>error</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+  } @else {
+    <div class="comments-list">
+      @for (comment of comments(); track comment.id) {
+        <div class="comment-item">
+            <p class="comment-body">{{ comment.body }}</p>
+          </div>
+       
+      } @empty {
+        <p class="empty-msg">No comments yet. Start the conversation!</p>
+      }
+    </div>
+  }
+
+  <div class="add-comment">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>כתוב הערה</mat-label>
+      <input matInput 
+             [value]="newComment()" 
+             (input)="newComment.set($any($event.target).value)" 
+             (keyup.enter)="addComment()"
+             aria-label="שדה הוספת הערה">
+      <button matSuffix mat-icon-button (click)="addComment()" aria-label="שלח הערה">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>

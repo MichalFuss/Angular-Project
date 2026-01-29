@@ -1,0 +1,52 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="header-content">
+    <div class="logo-section">
+      <mat-icon class="logo-icon">task_alt</mat-icon>
+      <span class="app-title">TaskFlow</span>
+    </div>
+    
+    <!-- Navigation Links (Logged In Only) -->
+    @if(isLoggedIn()) {
+      <nav class="nav-links">
+        <a routerLink="/teams" class="nav-link" routerLinkActive="active">
+          <mat-icon class="nav-icon">groups</mat-icon>
+          <span>הצוותים שלי</span>
+        </a>
+      </nav>
+    }
+    
+    <div class="user-section">
+      @if(isLoggedIn()) {
+        <div class="user-profile">
+          <mat-icon class="user-icon">account_circle</mat-icon>
+          <span class="welcome-text" role="status" aria-live="polite">{{ userName() }}</span>
+        </div>
+        <button mat-icon-button 
+                (click)="logout()" 
+                class="logout-btn"
+                matTooltip="התנתקות"
+                aria-label="התנתקות מהמערכת">
+          <mat-icon>logout</mat-icon>
+        </button>
+      }
+      @else {
+        <div class="auth-links">
+          <button mat-raised-button 
+                  class="auth-btn login-btn"
+                  (click)="navigateTo('/login')">
+            <mat-icon>login</mat-icon>
+            <span>התחברות</span>
+          </button>
+          <button mat-raised-button 
+                  class="auth-btn register-btn"
+                  (click)="navigateTo('/register')">
+            <mat-icon>person_add</mat-icon>
+            <span>הרשמה</span>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</mat-toolbar>
+
+

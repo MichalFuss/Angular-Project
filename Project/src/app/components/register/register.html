@@ -1,0 +1,86 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <div class="card-header-content">
+        <mat-icon class="header-icon">person_add</mat-icon>
+        <mat-card-title>יצירת חשבון חדש</mat-card-title>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (errorMessage()) {
+        <div class="error-toast" role="alert">
+          <mat-icon>error</mat-icon>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>שם מלא</mat-label>
+          <input matInput 
+                 formControlName="name" 
+                 placeholder="ישראל ישראלי"
+                 aria-label="שדה שם מלא">
+          <mat-icon matSuffix>person</mat-icon>
+          @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+            <mat-error>שם חייב להכיל לפחות 3 תווים</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>אימייל</mat-label>
+          <input matInput 
+                 type="email" 
+                 formControlName="email" 
+                 placeholder="example@mail.com"
+                 aria-label="שדה אימייל">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>
+            @if (registerForm.get('email')?.hasError('required')) { אימייל הוא שדה חובה }
+            @else if (registerForm.get('email')?.hasError('email')) { כתובת אימייל לא תקינה }
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>סיסמה</mat-label>
+          <input matInput 
+                 type="password" 
+                 formControlName="password"
+                 aria-label="שדה סיסמה">
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-error>
+            @if (registerForm.get('password')?.hasError('required')) { סיסמה היא שדה חובה }
+            @else if (registerForm.get('password')?.hasError('minlength')) { סיסמה חייבת להכיל לפחות 6 תווים }
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button 
+                color="primary" 
+                type="submit" 
+                [disabled]="registerForm.invalid" 
+                class="full-width submit-btn"
+                aria-label="הירשם לחשבון חדש">
+          <mat-icon>person_add</mat-icon>
+          הירשם
+        </button>
+
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="login-prompt">
+        <p>כבר יש לך חשבון?</p>
+        <button mat-text-button 
+                color="primary" 
+                (click)="navigateToLogin()"
+                class="login-link-btn"
+                aria-label="שחט לעמוד ההתחברות">
+          <mat-icon>arrow_forward</mat-icon>
+          התחבר עכשיו
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
