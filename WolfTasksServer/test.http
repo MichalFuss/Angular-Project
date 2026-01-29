@@ -1,0 +1,29 @@
+
+### התחברות
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "alice@example.com",
+    "password": "Password1!"
+}
+### התחברות
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "alice@example.com",
+    "password": "Password1!"
+}
+### בדיקת קבלת משימות לפי מזהה פרויקט
+GET http://localhost:3000/api/tasks/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyQHIiLCJyb2xlIjoidXNlciIsIm5hbWUiOiJycnIiLCJpYXQiOjE3Njk2NzcwODEsImV4cCI6MTc3MDI4MTg4MX0.X6AcAQSFi1YHXDNTor4eC3C2OKxKUaAMHDRFXSbP1H8
+Content-Type: application/json
+### בדיקת קבלת פרויקט לפי מזהה
+GET http://localhost:3000/api/projects/10
+Accept: application/json
+
+### קבלת משימות של פרויקט 10
+GET http://localhost:3000/api/tasks?projectId=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyQHIiLCJyb2xlIjoidXNlciIsIm5hbWUiOiJycnIiLCJpYXQiOjE3Njk2NzcwODEsImV4cCI6MTc3MDI4MTg4MX0.X6AcAQSFi1YHXDNTor4eC3C2OKxKUaAMHDRFXSbP1H8
+Accept: application/json
