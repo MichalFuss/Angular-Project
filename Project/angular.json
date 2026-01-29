@@ -79,16 +79,15 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "static",
+            "ssr": false
           }
         }
       }
