@@ -1,3 +1,3 @@
 export const environment = {
-  BASE_URL: 'https://angular-project-server.onrender.com/'
+  BASE_URL: 'https://team-tasks-api-ako5.onrender.com'
 };
